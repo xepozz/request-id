@@ -1,0 +1,43 @@
+{
+  "name": "xepozz/request-id",
+  "description": "Tracing request ID for Yii 3",
+  "minimum-stability": "dev",
+  "require": {
+    "php": "^8.1",
+    "psr/http-server-middleware": "^1.0@dev",
+    "ramsey/uuid": "^4.7.3"
+  },
+  "require-dev": {
+    "nyholm/psr7": "^1.5@dev",
+    "phpunit/phpunit": "10.0.17",
+    "vimeo/psalm": "^5.8",
+    "yiisoft/yii-debug": "dev-split-debug"
+  },
+  "scripts": {
+    "test": "phpunit --testdox",
+    "psalm": "psalm"
+  },
+  "autoload": {
+    "psr-4": {
+      "Xepozz\\RequestID\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Xepozz\\RequestID\\Tests\\": "tests"
+    }
+  },
+  "extra": {
+    "config-plugin-options": {
+      "source-directory": "config"
+    },
+    "config-plugin": {
+      "params": "params.php",
+      "di": "di.php",
+      "events": "events.php"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
