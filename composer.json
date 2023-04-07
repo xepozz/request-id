@@ -1,14 +1,20 @@
 {
   "name": "xepozz/request-id",
-  "description": "Tracing request ID for Yii 3",
-  "minimum-stability": "dev",
+  "description": "Tracing request and response IDs for Yii 3",
+  "minimum-stability": "stable",
+  "keywords": [
+    "yii",
+    "yii3",
+    "request-id",
+    "tracing"
+  ],
   "require": {
     "php": "^8.1",
-    "psr/http-server-middleware": "^1.0@dev",
+    "psr/http-server-middleware": "^1.0",
     "ramsey/uuid": "^4.7.3"
   },
   "require-dev": {
-    "nyholm/psr7": "^1.5@dev",
+    "nyholm/psr7": "^1.5.1",
     "phpunit/phpunit": "10.0.17",
     "vimeo/psalm": "^5.8",
     "yiisoft/yii-debug": "dev-split-debug"
