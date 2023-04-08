@@ -2,6 +2,12 @@
 
 This is a simple library to generate both unique request and response IDs for tracing purposes.
 
+[![Latest Stable Version](https://poser.pugx.org/xepozz/request-id/v/stable.svg)](https://packagist.org/packages/xepozz/request-id)
+[![Total Downloads](https://poser.pugx.org/xepozz/request-id/downloads.svg)](https://packagist.org/packages/xepozz/request-id)
+[![phpunit](https://github.com/xepozz/request-id/workflows/PHPUnit/badge.svg)](https://github.com/xepozz/request-id/actions)
+[![codecov](https://codecov.io/gh/xepozz/request-id/branch/master/graph/badge.svg?token=UREXAOUHTJ)](https://codecov.io/gh/xepozz/request-id)
+[![type-coverage](https://shepherd.dev/github/xepozz/request-id/coverage.svg)](https://shepherd.dev/github/xepozz/request-id)
+
 ## Installation
 
 ```bash
