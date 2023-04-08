@@ -9,6 +9,7 @@ use Xepozz\RequestID\RequestIDProviderInterface;
 return [
     'xepozz/request-id' => [
         'headerName' => 'X-Request-ID',
+        'useIncomingRequestID' => true,
         'setResponseHeader' => true,
     ],
     'yiisoft/yii-debug' => [

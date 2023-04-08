@@ -24,6 +24,51 @@ final class SetRequestIDMiddlewareTest extends TestCase
         $this->responseFactory = new Psr17Factory();
     }
 
+    public function testRequestIdNotRegenerated(): void
+    {
+        $headerName = 'X-Request-ID';
+        $newRequestHeader = null;
+        $oldRequestId = 'old-request-id';
+        $customHeaders = [$headerName => $oldRequestId];
+
+        $callback = function (ServerRequestInterface $request) use ($headerName, &$newRequestHeader) {
+            $newRequestHeader = $request->getHeaderLine($headerName);
+            return $this->responseFactory->createResponse();
+        };
+
+        $middleware = $this->createMiddleware($headerName);
+
+        $response = $this->processMiddleware($middleware, $callback, $customHeaders);
+
+        $responseHeader = $response->getHeaderLine($headerName);
+        $this->assertNotNull($newRequestHeader);
+        $this->assertEquals($oldRequestId, $newRequestHeader);
+        $this->assertEquals($newRequestHeader, $responseHeader);
+    }
+
+    public function testRequestIdRegenerated(): void
+    {
+        $headerName = 'X-Request-ID';
+        $newRequestHeader = null;
+        $useIncomingRequestID = false;
+        $oldRequestId = 'old-request-id';
+        $customHeaders = [$headerName => $oldRequestId];
+
+        $callback = function (ServerRequestInterface $request) use ($headerName, &$newRequestHeader) {
+            $newRequestHeader = $request->getHeaderLine($headerName);
+            return $this->responseFactory->createResponse();
+        };
+
+        $middleware = $this->createMiddleware($headerName, useIncomingRequestID: $useIncomingRequestID);
+
+        $response = $this->processMiddleware($middleware, $callback, $customHeaders);
+
+        $responseHeader = $response->getHeaderLine($headerName);
+        $this->assertNotNull($newRequestHeader);
+        $this->assertNotEquals($oldRequestId, $newRequestHeader);
+        $this->assertEquals($newRequestHeader, $responseHeader);
+    }
+
     public function testResponseHeaderSameAsRequestHeader(): void
     {
         $headerName = 'X-Request-ID';
@@ -84,15 +129,37 @@ final class SetRequestIDMiddlewareTest extends TestCase
         $this->assertEquals($newRequestHeader, $responseHeader);
     }
 
+    public function testProviderHasValue(): void
+    {
+        $provider = new RequestIDProvider();
+        $headerName = 'my-header-name';
+        $newRequestHeader = null;
+
+        $callback = function (ServerRequestInterface $request) use ($headerName, &$newRequestHeader) {
+            $newRequestHeader = $request->getHeaderLine($headerName);
+            return $this->responseFactory->createResponse();
+        };
+
+        $middleware = $this->createMiddleware($headerName, provider: $provider);
+
+        $this->processMiddleware($middleware, $callback);
+
+        $this->assertNotNull($provider->get());
+        $this->assertEquals($provider->get(), $newRequestHeader);
+    }
+
     private function createMiddleware(
-        string $headerName,
-        bool $setResponseHeader,
+        string $headerName = 'X-Request-ID',
+        bool $setResponseHeader = true,
+        bool $useIncomingRequestID = true,
+        ?RequestIDProvider $provider = null,
     ): SetRequestIDMiddleware {
         return new SetRequestIDMiddleware(
             new UuidGenerator(),
-            new RequestIDProvider(),
+            $provider ?? new RequestIDProvider(),
             $headerName,
             $setResponseHeader,
+            $useIncomingRequestID,
         );
     }
 
@@ -110,9 +177,13 @@ final class SetRequestIDMiddlewareTest extends TestCase
 
     private function processMiddleware(
         SetRequestIDMiddleware $middleware,
-        Closure $callback
+        Closure $callback,
+        array $customHeaders = [],
     ): \Psr\Http\Message\ResponseInterface {
         $request = new ServerRequest('GET', '/');
+        foreach ($customHeaders as $name => $value) {
+            $request = $request->withHeader($name, $value);
+        }
         $handler = $this->createRequestHandler($callback);
 
         return $middleware->process($request, $handler);

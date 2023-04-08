@@ -20,6 +20,7 @@ return [
         '__construct()' => [
             'headerName' => $params['xepozz/request-id']['headerName'],
             'setResponseHeader' => $params['xepozz/request-id']['setResponseHeader'],
+            'useIncomingRequestID' => $params['xepozz/request-id']['useIncomingRequestID'],
         ],
     ],
 ];

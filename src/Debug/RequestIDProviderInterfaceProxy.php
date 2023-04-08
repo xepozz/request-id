@@ -6,6 +6,9 @@ namespace Xepozz\RequestID\Debug;
 
 use Xepozz\RequestID\RequestIDProviderInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class RequestIDProviderInterfaceProxy implements RequestIDProviderInterface
 {
     public function __construct(

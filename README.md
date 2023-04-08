@@ -54,6 +54,20 @@ class HttpClient
 
 ## Configuration
 
+### Using incoming request ID
+
+If you want not to use the Request ID from the incoming request, you can disable this behavior by specifying the `useIncomingRequestID` parameter in the application configuration:
+
+```php
+return [
+    'xepozz/request-id' => [
+        'useIncomingRequestID' => false,
+    ],
+];
+```
+
+> Note: By default, the library always uses the header to get the request ID from the incoming request.
+
 ### Request ID header
 
 By default, the library uses the `X-Request-ID` header to store the request ID. Same header name is used to set response ID.

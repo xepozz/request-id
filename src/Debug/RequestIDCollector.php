@@ -7,6 +7,9 @@ namespace Xepozz\RequestID\Debug;
 use Yiisoft\Yii\Debug\Collector\CollectorInterface;
 use Yiisoft\Yii\Debug\Collector\CollectorTrait;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class RequestIDCollector implements CollectorInterface
 {
     use CollectorTrait;
