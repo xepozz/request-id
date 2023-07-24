@@ -5,6 +5,10 @@
   "keywords": [
     "yii",
     "yii3",
+    "yii-extension",
+    "yii-module",
+    "yii-plugin",
+    "yii-package",
     "request-id",
     "tracing"
   ],

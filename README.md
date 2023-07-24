@@ -116,3 +116,11 @@ return [
 ```
 
 
+## Looking for more modules?
+
+- [Unique ID](https://github.com/xepozz/unique-id) - Allows you to track the unique user in the application.
+- [AB](https://github.com/xepozz/ab) - A simple library to enable A/B testing based on a set of rules.
+- [Feature Flag](https://github.com/xepozz/feature-flag) - A simple library to enable/disable features based on a set of rules.
+- [Shortcut](https://github.com/xepozz/shortcut) - Sets of helper functions for rapid development of Yii 3 applications.
+
+ 
